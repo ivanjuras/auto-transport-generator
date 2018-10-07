@@ -24,23 +24,31 @@ new Vue({
 
       _self.allStates.forEach(function(state) {
         if (state.abbreviation === _self.mainStateAbbreviation) {
-          fullname = state.name
+          fullName = state.name
         }
       })
 
       return fullName
     },
 
-    randomVehicleAccessories: function() {
-      var shuffledList = this.vehicleAccessories
-        .sort(function() { return .5 - Math.random() })
-        .slice(0, this.randomAccessoryNumber)
+    randomBodyTypes: function() {
+      var shuffledList = this.vehicleBodyTypes.sort(function() { return .5 - Math.random() }).slice(0, this.randomBodyTypeNumber)
+      var shuffledVehicleBodyTypes = shuffledList.map(function (item) {
+        return item.name
+      })
+      shuffledVehicleBodyTypes[shuffledVehicleBodyTypes.length-1] = ` and ${shuffledVehicleBodyTypes[shuffledVehicleBodyTypes.length-1]}`
+      return shuffledVehicleBodyTypes.join(", ")
+    },
+
+    randomAccessories: function() {
+      var shuffledList = this.vehicleAccessories.sort(function() { return .5 - Math.random() }).slice(0, this.randomAccessoryNumber)
+      return shuffledList.map(function (item) {
+        return item.name
+      })
     },
 
     introParagraph: function() {
-      var randomParagraphs = this.introParagraphs
-        .sort(function() { return .5 - Math.random() })
-        .slice(0, 1)
+      var randomParagraphs = this.introParagraphs.sort(function() { return .5 - Math.random() }).slice(0, 1)
       var regex = /{{mainStateFullName}}/gi
       console.log(randomParagraphs[0].content.replace(regex, this.mainStateFullName))
       return randomParagraphs[0].content.replace(regex, this.mainStateFullName)
@@ -55,7 +63,7 @@ new Vue({
     generateRandomNumbers: function() {
       this.randomCityNumber = Math.floor(Math.random() * 15) + 1
       this.randomBodyTypeNumber = Math.floor(Math.random() * 12) + 1
-      this.randomAccessoryNumber = Math.floor(Math.random() * 20) + 1
+      this.randomAccessoryNumber = Math.floor(Math.random() * 15) + 1
     }
   },
 

@@ -73,7 +73,7 @@
             <a href="#" class="button is-medium is-success is-fullwidth"
               @click="showAllContent"
               v-if="showButton">
-                Show All Content
+                Generate Content
             </a>
 
             <!-- Display Main State Content -->
@@ -97,7 +97,7 @@
               </div>
               <div class="card-content">
                 <span class="copy-content-single">
-                  {{randomVehicleBodyTypes}}
+                  {{randomBodyTypes}}
                 </span>
               </div>
             </div>
@@ -111,8 +111,8 @@
               <div class="card-content">
                 <ul class="list--styled list--3-rows">
                   <li
-                    v-for="randomVehicleAccessory in randomVehicleAccessories">
-                      {{randomVehicleAccessory}}
+                    v-for="randomAccessory in randomAccessories">
+                      {{randomAccessory}}
                   </li>
                 </ul>
               </div>
@@ -131,7 +131,7 @@
 
               <h1>{{mainStateFullName}} Auto Transport</h1>
 
-              <p v-html="introParagraph"></p>
+              <p>{{introParagraph}}</p>
 
               <p>All the transport companies we work with have trucks in all parts of {{mainStateFullName}} including <strong>[STATE RANDOM CITIES]</strong>  several times a week. We check every auto shipping company to ensure they are fully insured, licensed and bonded through the US Department of Transportation. We check their history to ensure they have a spotless driving record and the experience to ensure your auto arrives in good condition and on time. Below are some of the {{mainStateFullName}} auto transports recently completed by our partners:</p>
 
@@ -154,12 +154,12 @@
 
               <p>Your car transport requirements greatly increase or decrease the cost of having your vehicle shipped. You can save a lot by choosing open transport rather than enclosed. Auto dealerships safely receive vehicles every day from open car carrier trailers. To save money we highly recommended this option unless of course you are shipping an irreplaceable luxury, high end sports car, or antique vehicle. Other important cost factors include the size, weight and type of car or truck.</p>
 
-              <p>The body type such as {{randomVehicleBodyTypes}} you are shipping, can also impact your rate. Usually the larger the vehicle the higher the shipping cost. If your vehicle has any non-standard accessories that have altered the size of your vehicle they can also increase the cost of shipping. Listed below are some of the accessories that can increase cost.</p>
+              <p>The body type such as {{randomBodyTypes}} you are shipping, can also impact your rate. Usually the larger the vehicle the higher the shipping cost. If your vehicle has any non-standard accessories that have altered the size of your vehicle they can also increase the cost of shipping. Listed below are some of the accessories that can increase cost.</p>
 
               <ul class="list--styled list--3-rows">
                 <li
-                  v-for="randomVehicleAccessory in randomVehicleAccessories">
-                    {{randomVehicleAccessory}}
+                  v-for="randomAccessory in randomAccessories">
+                    {{randomAccessory}}
                 </li>
               </ul>
 
