@@ -1,4 +1,4 @@
-new Vue({
+var vm = new Vue({
   el: "#app",
 
   data: {
@@ -31,6 +31,14 @@ new Vue({
       })
 
       return fullName
+    },
+
+    wundergroundURL: function() {
+      return `https://www.wunderground.com/US/${this.mainStateAbbreviation}/`
+    },
+
+    fhwaURL: function() {
+      return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm`
     },
 
     randomBodyTypes: function() {
@@ -74,6 +82,7 @@ new Vue({
   methods: {
     showAllContent: function() {
       this.showContent = true
+      vm.$forceUpdate()
     },
 
     generateRandomNumbers: function() {
