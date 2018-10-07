@@ -29,7 +29,14 @@ new Vue({
       })
 
       return fullname
-    }
+    },
+
+    introParagraph: function() {
+      var randomParagraphs = this.introParagraphs.sort(function() { return .5 - Math.random() }).slice(0, 1)
+      var regex = /{{mainStateFullName}}/gi
+      console.log(randomParagraphs[0].content.replace(regex, this.mainStateFullName))
+      return randomParagraphs[0].content.replace(regex, this.mainStateFullName)
+    },
   },
 
   methods: {
