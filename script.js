@@ -20,7 +20,7 @@ new Vue({
   computed: {
     mainStateFullName: function() {
       var _self = this,
-          fullname = ''
+          fullName = ''
 
       _self.allStates.forEach(function(state) {
         if (state.abbreviation === _self.mainStateAbbreviation) {
@@ -28,11 +28,19 @@ new Vue({
         }
       })
 
-      return fullname
+      return fullName
+    },
+
+    randomVehicleAccessories: function() {
+      var shuffledList = this.vehicleAccessories
+        .sort(function() { return .5 - Math.random() })
+        .slice(0, this.randomAccessoryNumber)
     },
 
     introParagraph: function() {
-      var randomParagraphs = this.introParagraphs.sort(function() { return .5 - Math.random() }).slice(0, 1)
+      var randomParagraphs = this.introParagraphs
+        .sort(function() { return .5 - Math.random() })
+        .slice(0, 1)
       var regex = /{{mainStateFullName}}/gi
       console.log(randomParagraphs[0].content.replace(regex, this.mainStateFullName))
       return randomParagraphs[0].content.replace(regex, this.mainStateFullName)
@@ -48,14 +56,7 @@ new Vue({
       this.randomCityNumber = Math.floor(Math.random() * 15) + 1
       this.randomBodyTypeNumber = Math.floor(Math.random() * 12) + 1
       this.randomAccessoryNumber = Math.floor(Math.random() * 20) + 1
-    },
-
-    generateIntroParagraph: function() {
-      var randomParagraphs = this.introParagraphs.sort(function() { return .5 - Math.random() }).slice(0, 1)
-      var regex = /{{mainStateFullName}}/gi
-      console.log(randomParagraphs[0].content.replace(regex, this.mainStateFullName))
-      return randomParagraphs[0].content.replace(regex, this.mainStateFullName)
-    },
+    }
   },
 
   mounted: function () {
