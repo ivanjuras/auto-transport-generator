@@ -69,6 +69,14 @@
               </div>
             </div>
 
+            <!-- Select number of rate impacts -->
+            <div class="field">
+              <div class="control">
+                <label class="label" for="random-rate-impact-number">Random Rate Impact Number</label>
+                <input v-model="randomRateImpactNumber" class="input" id="random-rate-impact-number" type="number">
+              </div>
+            </div>
+
             <!-- Generate Button -->
             <a href="#" class="button is-medium is-success is-fullwidth"
               @click="showAllContent"
@@ -76,7 +84,7 @@
                 Generate Content
             </a>
 
-            <!-- Display Main State Content -->
+            <!-- Main State -->
               <div class="card"
               v-if="showContent">
               <div class="card-header">
@@ -89,7 +97,7 @@
               </div>
             </div>
 
-            <!-- Display a Random Number of Random Body Types -->
+            <!-- Random Body Types -->
             <div class="card"
               v-if="showContent">
               <div class="card-header">
@@ -102,7 +110,7 @@
               </div>
             </div>
 
-            <!-- Display a Random Number of Random Body Types -->
+            <!-- Random Accessories -->
             <div class="card"
               v-if="showContent">
               <div class="card-header">
@@ -118,10 +126,43 @@
               </div>
             </div>
 
+            <!-- Random Rate Impacts -->
+            <div class="card"
+              v-if="showContent">
+              <div class="card-header">
+                <span class="card-header-title">Random Rate Impacts:</span>
+              </div>
+              <div class="card-content">
+                <ul class="list--styled list--3-rows">
+                  <li
+                    v-for="randomRateImpact in randomRateImpacts">
+                      {{randomRateImpact}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Random Shipping Impacts -->
+            <div class="card"
+              v-if="showContent">
+              <div class="card-header">
+                <span class="card-header-title">Random Shipping Impacts:</span>
+              </div>
+              <div class="card-content">
+                <ul class="list--styled list--3-rows">
+                  <li
+                    v-for="randomShippingImpact in randomShippingImpacts">
+                      {{randomShippingImpact}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+
         </div>
         <div class="column is-8">
 
-          <!-- Display All Content -->
+          <!-- --------------------------------- Display All Content ------------------------ -->
+
           <div class="card"
             v-if="showContent">
             <div class="card-header">
@@ -171,19 +212,12 @@
 
               <h4>Quick Auto Transport Rates Guide</h4>
 
-              <strong>
-                <ul class="list--styled list--3-rows">
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                    <li>[RANDOM RATES IMPACT]</li>
-                </ul>
-              </strong>
+              <ul class="list--styled list--3-rows">
+                <li
+                  v-for="randomRateImpact in randomRateImpacts">
+                    {{randomRateImpact}}
+                </li>
+              </ul>
 
               <p>Regardless of these factors our partners will work to get you the lowest price for your {{mainStateFullName}} transport. You will get 10 car transport quotes from our partner auto transport shipping companies, that will best match your needs and price range. Our trusted partner’s quotes are always among the lowest rates you will find in the auto shipping business. Let us exceed your expectations and get your quotes right now. Simply fill in the form and click submit or give us a call at 1-800-590-6492 today.</p>
 
@@ -213,19 +247,12 @@
 
               <h3>Pickup and Delivery Impacts</h3>
 
-              <strong>
-                <ul class="list--styled list--3-rows">
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                    <li>[SHIPPING IMPACT]</li>
-                </ul>
-              </strong>
+              <ul class="list--styled list--3-rows">
+                <li
+                  v-for="randomShippingImpact in randomShippingImpacts">
+                    {{randomShippingImpact}}
+                </li>
+              </ul>
 
               <p>Weather conditions can also impact pickup and delivery locations. On average, {{mainStateFullName}} receives 213 sunny days per year which makes auto transport pickups and drop-offs relatively easy. {{mainStateFullName}} enjoys year-round mild conditions with average temperatures near 80 during the summer months, and above 45 in the winter months. Temperatures are usually warmer in the southern part of the state with its proximity to the Gulf of Mexico, where summer highs temperatures can reach into the 90’s.</p>
 

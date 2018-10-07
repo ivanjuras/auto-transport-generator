@@ -10,6 +10,8 @@ new Vue({
     randomCityNumber: 0,
     randomBodyTypeNumber: 0,
     randomAccessoryNumber: 0,
+    randomRateImpactNumber: 0,
+    randomShippingImpactNumber: 0,
     vehicleAccessories: [],
     vehicleBodyTypes: [],
     rateImpacts: [],
@@ -47,6 +49,20 @@ new Vue({
       })
     },
 
+    randomRateImpacts: function() {
+      var shuffledList = this.rateImpacts.sort(function() { return .5 - Math.random() }).slice(0, this.randomRateImpactNumber)
+      return shuffledList.map(function (item) {
+        return item.name
+      })
+    },
+
+    randomShippingImpacts: function() {
+      var shuffledList = this.shippingImpacts.sort(function() { return .5 - Math.random() }).slice(0, this.randomShippingImpactNumber)
+      return shuffledList.map(function (item) {
+        return item.name
+      })
+    },
+
     introParagraph: function() {
       var randomParagraphs = this.introParagraphs.sort(function() { return .5 - Math.random() }).slice(0, 1)
       var regex = /{{mainStateFullName}}/gi
@@ -64,6 +80,8 @@ new Vue({
       this.randomCityNumber = Math.floor(Math.random() * 15) + 1
       this.randomBodyTypeNumber = Math.floor(Math.random() * 12) + 1
       this.randomAccessoryNumber = Math.floor(Math.random() * 15) + 1
+      this.randomRateImpactNumber = Math.floor(Math.random() * 15) + 1
+      this.randomShippingImpactNumber = Math.floor(Math.random() * 15) + 1
     }
   },
 
