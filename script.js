@@ -3,7 +3,7 @@ var vm = new Vue({
 
   data: {
     appTitle: "Auto Transport Content Generator",
-    showButton: true,
+    showGenerateButton: true,
     showContent: false,
     allStates: [],
     mainStateAbbreviation: 'AL',
@@ -12,8 +12,10 @@ var vm = new Vue({
     randomAccessoryNumber: 0,
     randomRateImpactNumber: 0,
     randomShippingImpactNumber: 0,
+    mainStateTopTenCities: [],
     vehicleAccessories: [],
     vehicleBodyTypes: [],
+    topTwentyCitiesUSA: [],
     rateImpacts: [],
     shippingImpacts: [],
     introParagraphs: []
@@ -39,6 +41,15 @@ var vm = new Vue({
 
     fhwaURL: function() {
       return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm`
+    },
+
+    mainStateRandomTopTenCities: function() {
+      var shuffledList = this.mainStateTopTenCities.sort(function() { return .5 - Math.random() }).slice(0, this.randomCityNumber)
+      var shuffledmainStateTopTenCities = shuffledList.map(function (item) {
+        return item.name
+      })
+      shuffledmainStateTopTenCities[shuffledmainStateTopTenCities.length-1] = ` and ${shuffledmainStateTopTenCities[shuffledmainStateTopTenCities.length-1]}`
+      return shuffledmainStateTopTenCities.join(", ")
     },
 
     randomBodyTypes: function() {
@@ -74,24 +85,36 @@ var vm = new Vue({
     introParagraph: function() {
       var randomParagraphs = this.introParagraphs.sort(function() { return .5 - Math.random() }).slice(0, 1)
       var regex = /{{mainStateFullName}}/gi
-      console.log(randomParagraphs[0].content.replace(regex, this.mainStateFullName))
       return randomParagraphs[0].content.replace(regex, this.mainStateFullName)
     },
   },
 
   methods: {
-    showAllContent: function() {
+    generateContent: function() {
       this.showContent = true
-      vm.$forceUpdate()
+      this.showGenerateButton = false
+      this.getMainStateData()
     },
 
     generateRandomNumbers: function() {
-      this.randomCityNumber = Math.floor(Math.random() * 15) + 1
-      this.randomBodyTypeNumber = Math.floor(Math.random() * 12) + 1
-      this.randomAccessoryNumber = Math.floor(Math.random() * 15) + 1
-      this.randomRateImpactNumber = Math.floor(Math.random() * 15) + 1
-      this.randomShippingImpactNumber = Math.floor(Math.random() * 15) + 1
+      this.randomCityNumber = Math.floor(Math.random() * 8) +2
+      this.randomBodyTypeNumber = Math.floor(Math.random() * 12) + 2
+      this.randomAccessoryNumber = Math.floor(Math.random() * 15) + 2
+      this.randomRateImpactNumber = Math.floor(Math.random() * 15) + 2
+      this.randomShippingImpactNumber = Math.floor(Math.random() * 15) + 2
+    },
+
+    getMainStateData: function() {
+      var _self = this
+      
+      axios.get(`https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=${_self.mainStateAbbreviation}`).then(function(response) {
+        _self.mainStateTopTenCities = response.data.filter(function(item) {
+          return item.type === 'topTenCity'
+        })
+      })
+
     }
+
   },
 
   mounted: function () {
@@ -118,6 +141,10 @@ var vm = new Vue({
 
       _self.shippingImpacts = response.data.filter(function(item) {
         return item.randomThingType === 'shippingImpact'
+      })
+
+      _self.topTwentyCitiesUSA = response.data.filter(function(item) {
+        return item.randomThingType === 'topTwentyCityUSA'
       })
     })
 
