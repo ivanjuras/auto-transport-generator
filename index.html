@@ -113,6 +113,22 @@
             </div>
           </div>
 
+          <!-- Random Transports -->
+          <div class="card"
+            v-if="showContent">
+            <div class="card-header">
+              <span class="card-header-title">Random Transports:</span>
+            </div>
+            <div class="card-content">
+              <ul class="list--styled list--3-rows">
+                <li
+                  v-for="randomTransport in randomTransports">
+                    {{randomTransport}}
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!-- Main State Random Top Ten Cities -->
           <div class="card"
             v-if="showContent">
