@@ -53,6 +53,14 @@
             </div>
           </div>
 
+          <!-- Select number of random transports -->
+          <div class="field">
+            <div class="control">
+              <label class="label" for="random-transport-number">Random Transports Number</label>
+              <input v-model="randomTransportsNumber" class="input" id="random-city-number" type="number">
+            </div>
+          </div>
+
           <!-- Select number of body types -->
           <div class="field">
             <div class="control">
@@ -197,20 +205,12 @@
 
               <p>All the transport companies we work with have trucks in all parts of {{mainStateFullName}} including {{mainStateRandomTopTenCities}}, several times a week. We check every auto shipping company to ensure they are fully insured, licensed and bonded through the US Department of Transportation. We check their history to ensure they have a spotless driving record and the experience to ensure your auto arrives in good condition and on time. Below are some of the {{mainStateFullName}} auto transports recently completed by our partners:</p>
 
-              <strong>
-                <ul class="list--styled list--2-rows">
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                    <li>2018 Toyota RAV4, Birmingham, AL to Napa, CA</li>
-                </ul>
-              </strong>
+              <ul class="list--styled list--2-rows">
+                <li
+                  v-for="randomTransport in randomTransports">
+                    {{randomTransport}}
+                </li>
+              </ul>
 
               <h2>{{mainStateFullName}} Auto Transport Rates</h2>
 
