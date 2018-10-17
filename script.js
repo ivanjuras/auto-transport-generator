@@ -15,6 +15,7 @@ var vm = new Vue({
     randomTransportsNumber: 0,
     mainStateTopTenCities: [],
     mainStateCities: [],
+    stateNickname: [],
     vehicleAccessories: [],
     vehicleBodyTypes: [],
     topTwentyCitiesUSA: [],
@@ -104,8 +105,17 @@ var vm = new Vue({
 
     introParagraph: function() {
       var randomParagraphs = this.introParagraphs.sort(function() { return .5 - Math.random() }).slice(0, 1)
-      var regex = /{{mainStateFullName}}/gi
-      return randomParagraphs[0].content.replace(regex, this.mainStateFullName)
+      var mainStateNickname = this.stateNickName[0].name
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi
+      var regexMainStateRandomTopTenCities = /{{mainStateRandomTopTenCities}}/gi
+      var regexStateNickName = /{{stateNickname}}/gi
+
+      var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
+      var paraMutation2 = paraMutation1.replace(regexMainStateRandomTopTenCities, this.mainStateRandomTopTenCities)
+      var paraMutation3 = paraMutation2.replace(regexStateNickName, mainStateNickname)
+
+      return paraMutation3
     },
   },
 
@@ -135,6 +145,10 @@ var vm = new Vue({
 
         _self.mainStateCities = response.data.filter(function(item) {
           return item.type === 'city'
+        })
+
+        _self.stateNickName = response.data.filter(function(item) {
+          return item.type === 'stateNickname'
         })
       })
     }
@@ -177,7 +191,7 @@ var vm = new Vue({
 
     axios.get('https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomParagraphs').then(function(response) {
       _self.introParagraphs = response.data.filter(function(item) {
-        return item.paragraphType === 'intro'
+        return item.paragraphType === 'introPara'
       })
     })
   }
