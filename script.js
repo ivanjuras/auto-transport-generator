@@ -21,7 +21,13 @@ var vm = new Vue({
     topTwentyCitiesUSA: [],
     rateImpacts: [],
     shippingImpacts: [],
-    introParagraphs: []
+    introParagraphs: [],
+    ratesParagraphs1: [],
+    ratesParagraphs2: [],
+    ratesParagraphs3: [],
+    processParagraphs1: [],
+    processParagraphs2: [],
+    processParagraphs3: [],
   },
 
   computed: {
@@ -117,6 +123,26 @@ var vm = new Vue({
 
       return paraMutation3
     },
+
+    ratesParagraph1: function() {
+      var randomParagraphs = this.ratesParagraphs1.sort(function() { return .5 - Math.random() }).slice(0, 1)
+
+      var regexRandomBodyTypes = /{{randomBodyTypes}}/gi
+
+      var paraMutation1 = randomParagraphs[0].content.replace(regexRandomBodyTypes, this.randomBodyTypes)
+
+      return paraMutation1
+    },
+
+    ratesParagraph2: function() {
+      var randomParagraphs = this.ratesParagraphs2.sort(function() { return .5 - Math.random() }).slice(0, 1)
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi
+
+      var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
+      
+      return paraMutation1
+    },
   },
 
   methods: {
@@ -192,6 +218,30 @@ var vm = new Vue({
     axios.get('https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomParagraphs').then(function(response) {
       _self.introParagraphs = response.data.filter(function(item) {
         return item.paragraphType === 'introPara'
+      })
+
+      _self.ratesParagraphs1 = response.data.filter(function(item) {
+        return item.paragraphType === 'ratesPara1'
+      })
+
+      _self.ratesParagraphs2 = response.data.filter(function(item) {
+        return item.paragraphType === 'ratesPara2'
+      })
+
+      _self.ratesParagraphs3 = response.data.filter(function(item) {
+        return item.paragraphType === 'ratesPara3'
+      })
+
+      _self.processParagraphs1 = response.data.filter(function(item) {
+        return item.paragraphType === 'processPara1'
+      })
+
+      _self.processParagraphs2 = response.data.filter(function(item) {
+        return item.paragraphType === 'processPara2'
+      })
+
+      _self.processParagraphs3 = response.data.filter(function(item) {
+        return item.paragraphType === 'processPara3'
       })
     })
   }
