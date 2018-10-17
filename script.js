@@ -28,6 +28,8 @@ var vm = new Vue({
     processParagraphs1: [],
     processParagraphs2: [],
     processParagraphs3: [],
+    roadConditionParagraphArray: [],
+    weatherParagraphArray: []
   },
 
   computed: {
@@ -140,8 +142,54 @@ var vm = new Vue({
       var regexMainStateFullName = /{{mainStateFullName}}/gi
 
       var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
-      
+
       return paraMutation1
+    },
+
+    ratesParagraph3: function() {
+      var randomParagraphs = this.ratesParagraphs3.sort(function() { return .5 - Math.random() }).slice(0, 1)
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi
+
+      var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
+
+      return paraMutation1
+    },
+
+    processParagraph1: function() {
+      var randomParagraphs = this.processParagraphs1.sort(function() { return .5 - Math.random() }).slice(0, 1)
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi
+
+      var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
+
+      return paraMutation1
+    },
+
+    processParagraph2: function() {
+      var randomParagraphs = this.processParagraphs2.sort(function() { return .5 - Math.random() }).slice(0, 1)
+
+      var paraMutation1 = randomParagraphs[0].content
+
+      return paraMutation1
+    },
+
+    processParagraph3: function() {
+      var randomParagraphs = this.processParagraphs3.sort(function() { return .5 - Math.random() }).slice(0, 1)
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi
+
+      var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
+
+      return paraMutation1
+    },
+
+    roadConditionParagraph: function() {
+      return this.roadConditionParagraphArray[0].name
+    },
+
+    weatherParagraph: function() {
+      return this.weatherParagraphArray[0].name
     },
   },
 
@@ -175,6 +223,14 @@ var vm = new Vue({
 
         _self.stateNickName = response.data.filter(function(item) {
           return item.type === 'stateNickname'
+        })
+
+        _self.roadConditionParagraphArray = response.data.filter(function(item) {
+          return item.type === 'roadConditionParagraph'
+        })
+
+        _self.weatherParagraphArray = response.data.filter(function(item) {
+          return item.type === 'weatherParagraph'
         })
       })
     }

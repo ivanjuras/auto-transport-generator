@@ -248,33 +248,21 @@
                 </li>
               </ul>
 
-              <p>Regardless of these factors our partners will work to get you the lowest price for your {{mainStateFullName}} transport. You will get 10 car transport quotes from our partner auto transport shipping companies, that will best match your needs and price range. Our trusted partner’s quotes are always among the lowest rates you will find in the auto shipping business. Let us exceed your expectations and get your quotes right now. Simply fill in the form and click submit or give us a call at 1-800-590-6492 today.</p>
-
-              <h2>Why Choose Us</h2>
-
-              <p>When you choose us, you are choosing to get the some of the lowest rates from the best auto transport shippers in {{mainStateFullName}}. We only partner with experienced shippers that will always go the extra mile for you. By completing the form or calling 1-800-590-6492. You will receive 10 quotes from our partners transport companies. Every one of our partner carriers are federally licensed, insured and bonded.</p>
-
-              <p>The safety records and registration of all our partners can be easily found at Federal Motor Carrier Safety Administration and we recommend and welcome you to verify their information once you have selected a carrier. For even more reviews and information about our affiliated partners you can also check with the Better Business Bureau.</p>
-
-              <p>Our partners regularly have trucks in every location in {{mainStateFullName}} including {{mainStateRandomTopTenCities}}.</p>
-
-              Don’t waste any more of your time looking, allow our experienced partners to work for you. Our reliable partners have delivered thousands of vehicles from {{mainStateFullName}}.
-
-              <p>Allow us to get you the lowest quotes and help insure your auto delivery is fast, efficient, and reliable. Allow us to help get you the best rates from the most reliable auto transport shippers you will find. Choose us now and we will get your 10 quotes today or simply call 1-800-590-6492.</p>
+              <p>{{ratesParagraph3}}</p>
 
               <h3>{{mainStateFullName}} Auto Shipping Process</h3>
 
-              <p>The best way to avoid any problems with your {{mainStateFullName}} car shipping is by careful preparation. Be sure that both your delivery and pick-up addresses are correct. Remember that weight is a major factor in your rate. Do not use your vehicle as a method to ship other personal items and have only a quarter tank of gas or less at the time of pick-up. You can ship an inoperable vehicle, but it will be more expensive.</p>
+              <p>{{processParagraph1}}</p>
 
-              <p>Vehicles that are not steerable and/or do not have operable brakes will cost significantly more. You MUST inform the carrier of the vehicles condition and be prepared to pay a higher rate. Many drivers will not transport an inoperable vehicle if they have not been first notified.</p>
-                
-              <p>When your vehicle is picked up you will complete a bill of lading. It is extremely important to accurately complete this document. You and the driver will inspect your vehicle and document any damage to the vehicle, such as scratches, dents, broken glass, etc. When you receive your vehicle at the delivery location be sure that you carefully check the entire vehicle prior to signing the bill of lading. Failing to do this can make it very difficult if not impossible to receive compensation for any unfortunate damage.</p>
-                
-              <p>We carefully choose the best auto shipping carriers in the business but should cover any unexpected issue or problems come up you should definitely report them to the Federal Motor Carrier Safety Administration.</p>
+              <p>{{processParagraph2}}</p>
 
-              <p>Communication is the key to a hassle free auto transport. Our {{mainStateFullName}} auto transport partners will attempt to keep you informed every step of the way. Our partners typically deliver on-time, however occasionally situations created by weather, road conditions, or other traffic problems are possible. Keeping in touch with your driver will help eliminate a lot of stress.</p>
+              <p>{{processParagraph3}}</p>
 
-              <h3>Pickup and Delivery Impacts</h3>
+              <h3>Shipping Impacts</h3>
+
+              <p v-html="roadConditionParagraph"></p>
+
+              <h3>Pickup and Delivery Impacts Guide</h3>
 
               <ul class="list--styled list--3-rows">
                 <li
@@ -283,16 +271,7 @@
                 </li>
               </ul>
 
-              <p>Weather conditions can also impact pickup and delivery locations. On average, {{mainStateFullName}} receives 213 sunny days per year which makes auto transport pickups and drop-offs relatively easy. {{mainStateFullName}} enjoys year-round mild conditions with average temperatures near 80 during the summer months, and above 45 in the winter months. Temperatures are usually warmer in the southern part of the state with its proximity to the Gulf of Mexico, where summer highs temperatures can reach into the 90’s.</p>
-
-              <p>The state does receive heavy rains during the summer which can impact auto shipping pickups and drop-offs. The northern parts of the state, especially in the Appalachian Mountains in the northeast, tend to be slightly cooler. Northern parts of the state receive occasional snowfalls, and rainfall is spread throughout the year with an annual rainfall of 54 inches.</p>
-                
-              <p>Snowfall in {{mainStateFullName}} rarely impacts car shipping schedules. Higher humidity levels and increased rainfall are common along the Gulf of Mexico and in the southwest. {{mainStateFullName}} occasionally experiences hurricanes and tropical storms that can impact pickup and delivery schedules. We recommend you track weather conditions to stay informed of any potential weather-related delays.</p>
-
-              <p>Check here to find current weather conditions in <a :href="wundergroundURL" target="_blank" rel="noopener">{{mainStateFullName}}</a>.</p>
-
-              <p>Traffic can also impact pickup and/or drop-off schedules. We recommend you check road and traffic conditions for delays. Check here to find current traffic conditions in <a :href="fhwaURL" target="_blank" rel="noopener">{{mainStateFullName}}</a>.</p>
-
+              <p v-html="weatherParagraph"></p>
 
             </div>
           </div>
