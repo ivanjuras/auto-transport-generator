@@ -54,13 +54,13 @@ var vm = new Vue({
       return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm`
     },
 
-    mainStateRandomTopTenCities: function() {
-      var shuffledList = this.mainStateTopTenCities.sort(function() { return .5 - Math.random() }).slice(0, this.randomCityNumber)
-      var shuffledmainStateTopTenCities = shuffledList.map(function (item) {
+    mainStateRandomCities: function() {
+      var shuffledList = this.mainStateCities.sort(function() { return .5 - Math.random() }).slice(0, this.randomCityNumber)
+      var shuffledMainStateCities = shuffledList.map(function (item) {
         return item.name
       })
-      shuffledmainStateTopTenCities[shuffledmainStateTopTenCities.length-1] = ` and ${shuffledmainStateTopTenCities[shuffledmainStateTopTenCities.length-1]}`
-      return shuffledmainStateTopTenCities.join(", ")
+      shuffledMainStateCities[shuffledMainStateCities.length-1] = ` and ${shuffledMainStateCities[shuffledMainStateCities.length-1]}`
+      return shuffledMainStateCities.join(", ")
     },
 
     randomBodyTypes: function() {
@@ -95,8 +95,8 @@ var vm = new Vue({
 
     randomTransports: function() {
       var shuffledCars = this.randomCars.sort(function() { return .5 - Math.random() }).slice(0, this.randomTransportsNumber),
-          shuffledMainStateCities = this.mainStateCities.sort(function() { return .5 - Math.random() }).slice(0, this.randomTransportsNumber),
-          shuffledMainStateCitiesNames = shuffledMainStateCities.map(function (item) {
+          shuffledMainStateTopTenCities = this.mainStateTopTenCities.sort(function() { return .5 - Math.random() }).slice(0, this.randomTransportsNumber),
+          shuffledMainStateTopTenCitiesNames = shuffledMainStateTopTenCities.map(function (item) {
             return item.name
           }), 
           shuffledTopTwentyCitiesUSA = this.topTwentyCitiesUSA.sort(function() { return .5 - Math.random() }).slice(0, this.randomTransportsNumber),
@@ -104,7 +104,7 @@ var vm = new Vue({
           _self = this
 
           for (var i = 0, len = this.randomTransportsNumber - 1; i <= len; i += 1) {
-            var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${shuffledCars[i].model}, ${shuffledMainStateCitiesNames[i]}, ${_self.mainStateAbbreviation} to ${shuffledTopTwentyCitiesUSA[i].name}`
+            var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${shuffledCars[i].model}, ${shuffledMainStateTopTenCitiesNames[i]}, ${_self.mainStateAbbreviation} to ${shuffledTopTwentyCitiesUSA[i].name}`
             randomTransportsArray.push(arrayItem)
           }
 
@@ -116,11 +116,11 @@ var vm = new Vue({
       var mainStateNickname = this.stateNickName[0].name
 
       var regexMainStateFullName = /{{mainStateFullName}}/gi
-      var regexMainStateRandomTopTenCities = /{{mainStateRandomTopTenCities}}/gi
+      var regexMainStateRandomCities = /{{mainStateRandomCities}}/gi
       var regexStateNickName = /{{stateNickname}}/gi
 
       var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
-      var paraMutation2 = paraMutation1.replace(regexMainStateRandomTopTenCities, this.mainStateRandomTopTenCities)
+      var paraMutation2 = paraMutation1.replace(regexMainStateRandomCities, this.mainStateRandomCities)
       var paraMutation3 = paraMutation2.replace(regexStateNickName, mainStateNickname)
 
       return paraMutation3
@@ -128,59 +128,42 @@ var vm = new Vue({
 
     ratesParagraph1: function() {
       var randomParagraphs = this.ratesParagraphs1.sort(function() { return .5 - Math.random() }).slice(0, 1)
-
       var regexRandomBodyTypes = /{{randomBodyTypes}}/gi
-
       var paraMutation1 = randomParagraphs[0].content.replace(regexRandomBodyTypes, this.randomBodyTypes)
-
       return paraMutation1
     },
 
     ratesParagraph2: function() {
       var randomParagraphs = this.ratesParagraphs2.sort(function() { return .5 - Math.random() }).slice(0, 1)
-
       var regexMainStateFullName = /{{mainStateFullName}}/gi
-
       var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
-
       return paraMutation1
     },
 
     ratesParagraph3: function() {
       var randomParagraphs = this.ratesParagraphs3.sort(function() { return .5 - Math.random() }).slice(0, 1)
-
       var regexMainStateFullName = /{{mainStateFullName}}/gi
-
       var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
-
       return paraMutation1
     },
 
     processParagraph1: function() {
       var randomParagraphs = this.processParagraphs1.sort(function() { return .5 - Math.random() }).slice(0, 1)
-
       var regexMainStateFullName = /{{mainStateFullName}}/gi
-
       var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
-
       return paraMutation1
     },
 
     processParagraph2: function() {
       var randomParagraphs = this.processParagraphs2.sort(function() { return .5 - Math.random() }).slice(0, 1)
-
       var paraMutation1 = randomParagraphs[0].content
-
       return paraMutation1
     },
 
     processParagraph3: function() {
       var randomParagraphs = this.processParagraphs3.sort(function() { return .5 - Math.random() }).slice(0, 1)
-
       var regexMainStateFullName = /{{mainStateFullName}}/gi
-
       var paraMutation1 = randomParagraphs[0].content.replace(regexMainStateFullName, this.mainStateFullName)
-
       return paraMutation1
     },
 
