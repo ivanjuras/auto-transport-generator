@@ -70,3 +70,7 @@ ul {
                      break-inside: avoid;
     }
 }
+
+.navigation {
+  text-align: center;
+}
