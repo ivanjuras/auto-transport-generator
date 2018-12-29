@@ -33,12 +33,11 @@ var vm = new Vue({
 	},
 
 	computed: {
-		mainStateFullName: function() {
-			var _self = this,
-				fullName = "";
+		mainStateFullName() {
+			var fullName = "";
 
-			_self.allStates.forEach(function(state) {
-				if (state.abbreviation === _self.mainStateAbbreviation) {
+			this.allStates.forEach( (state) => {
+				if (state.abbreviation === this.mainStateAbbreviation) {
 					fullName = state.name;
 				}
 			});
@@ -46,117 +45,81 @@ var vm = new Vue({
 			return fullName;
 		},
 
-		wundergroundURL: function() {
-			return `https://www.wunderground.com/US/${this.mainStateAbbreviation}/`;
-		},
+		wundergroundURL() { return `https://www.wunderground.com/US/${this.mainStateAbbreviation}/` },
 
-		fhwaURL: function() {
-			return `https://www.fhwa.dot.gov/trafficinfo/${
-				this.mainStateAbbreviation
-			}.htm`;
-		},
+		fhwaURL() { `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm` },
 
-		mainStateRandomCities: function() {
+		mainStateRandomCities() {
 			var shuffledList = this.mainStateCities
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, this.randomCityNumber);
 
-			var shuffledMainStateCities = shuffledList.map(function(item) {
-				return item.name;
-			});
+			var shuffledMainStateCities = shuffledList.map((item) => item.name);
 
-			shuffledMainStateCities[shuffledMainStateCities.length - 1] = ` and ${
-				shuffledMainStateCities[shuffledMainStateCities.length - 1]
-			}`;
+			shuffledMainStateCities[shuffledMainStateCities.length - 1] = ` and ${shuffledMainStateCities[shuffledMainStateCities.length - 1]}`;
 
 			return shuffledMainStateCities.join(", ");
 		},
 
-		randomBodyTypes: function() {
+		randomBodyTypes() {
 			var shuffledList = this.vehicleBodyTypes
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, this.randomBodyTypeNumber);
 
-			var shuffledVehicleBodyTypes = shuffledList.map(function(item) {
-				return item.name;
-			});
+			var shuffledVehicleBodyTypes = shuffledList.map((item) => item.name);
 
-			shuffledVehicleBodyTypes[shuffledVehicleBodyTypes.length - 1] = ` and ${
-				shuffledVehicleBodyTypes[shuffledVehicleBodyTypes.length - 1]
-			}`;
+			shuffledVehicleBodyTypes[shuffledVehicleBodyTypes.length - 1] = ` and ${shuffledVehicleBodyTypes[shuffledVehicleBodyTypes.length - 1]}`;
 
 			return shuffledVehicleBodyTypes.join(", ");
 		},
 
-		randomAccessories: function() {
+		randomAccessories() {
 			var shuffledList = this.vehicleAccessories
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, this.randomAccessoryNumber);
 
-			return shuffledList.map(function(item) {
-				return item.name;
-			});
+			return shuffledList.map((item) => item.name);
 		},
 
-		randomRateImpacts: function() {
+		randomRateImpacts() {
 			var shuffledList = this.rateImpacts
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, this.randomRateImpactNumber);
 
-			return shuffledList.map(function(item) {
-				return item.name;
-			});
+			return shuffledList.map((item) => item.name);
 		},
 
-		randomShippingImpacts: function() {
+		randomShippingImpacts() {
 			var shuffledList = this.shippingImpacts
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, this.randomShippingImpactNumber);
 
-			return shuffledList.map(function(item) {
-				return item.name;
-			});
+			return shuffledList.map((item) => item.name)
 		},
 
-		randomTransports: function() {
+		randomTransports() {
 			var shuffledCars = this.randomCars
-					.sort(function() {
-						return 0.5 - Math.random();
-					})
+					.sort(() => 0.5 - Math.random())
 					.slice(0, this.randomTransportsNumber),
+
 				shuffledMainStateTopTenCities = this.mainStateTopTenCities
-					.sort(function() {
-						return 0.5 - Math.random();
-					})
+					.sort(() => 0.5 - Math.random())
 					.slice(0, this.randomTransportsNumber),
-				shuffledMainStateTopTenCitiesNames = shuffledMainStateTopTenCities.map(
-					function(item) {
-						return item.name;
-					}
-				),
+
+				shuffledMainStateTopTenCitiesNames = shuffledMainStateTopTenCities
+					.map((item) => item.name),
+
 				shuffledTopTwentyCitiesUSA = this.topTwentyCitiesUSA
-					.sort(function() {
-						return 0.5 - Math.random();
-					})
+					.sort(() => 0.5 - Math.random())
 					.slice(0, this.randomTransportsNumber),
-				randomTransportsArray = [],
-				_self = this;
+
+				randomTransportsArray = [];
 
 			for (var i = 0, len = this.randomTransportsNumber - 1; i <= len; i += 1) {
 				var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${
 					shuffledCars[i].model
 				}, ${shuffledMainStateTopTenCitiesNames[i]}, ${
-					_self.mainStateAbbreviation
+					this.mainStateAbbreviation
 				} to ${shuffledTopTwentyCitiesUSA[i].name}`;
 
 				randomTransportsArray.push(arrayItem);
@@ -165,11 +128,9 @@ var vm = new Vue({
 			return randomTransportsArray;
 		},
 
-		introParagraph: function() {
+		introParagraph() {
 			var randomParagraphs = this.introParagraphs
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, 1);
 
 			var mainStateNickname = this.stateNickName[0].name;
@@ -198,11 +159,9 @@ var vm = new Vue({
 			return paraMutation3;
 		},
 
-		ratesParagraph1: function() {
+		ratesParagraph1() {
 			var randomParagraphs = this.ratesParagraphs1
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, 1);
 
 			var regexRandomBodyTypes = /{{randomBodyTypes}}/gi;
@@ -215,13 +174,13 @@ var vm = new Vue({
 			return paraMutation1;
 		},
 
-		ratesParagraph2: function() {
+		ratesParagraph2() {
 			var randomParagraphs = this.ratesParagraphs2
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, 1);
+
 			var regexMainStateFullName = /{{mainStateFullName}}/gi;
+
 			var paraMutation1 = randomParagraphs[0].content.replace(
 				regexMainStateFullName,
 				this.mainStateFullName
@@ -230,13 +189,13 @@ var vm = new Vue({
 			return paraMutation1;
 		},
 
-		ratesParagraph3: function() {
+		ratesParagraph3() {
 			var randomParagraphs = this.ratesParagraphs3
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, 1);
+
 			var regexMainStateFullName = /{{mainStateFullName}}/gi;
+
 			var paraMutation1 = randomParagraphs[0].content.replace(
 				regexMainStateFullName,
 				this.mainStateFullName
@@ -245,13 +204,13 @@ var vm = new Vue({
 			return paraMutation1;
 		},
 
-		processParagraph1: function() {
+		processParagraph1() {
 			var randomParagraphs = this.processParagraphs1
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, 1);
+
 			var regexMainStateFullName = /{{mainStateFullName}}/gi;
+
 			var paraMutation1 = randomParagraphs[0].content.replace(
 				regexMainStateFullName,
 				this.mainStateFullName
@@ -260,24 +219,23 @@ var vm = new Vue({
 			return paraMutation1;
 		},
 
-		processParagraph2: function() {
+		processParagraph2() {
 			var randomParagraphs = this.processParagraphs2
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, 1);
+
 			var paraMutation1 = randomParagraphs[0].content;
 
 			return paraMutation1;
 		},
 
-		processParagraph3: function() {
+		processParagraph3() {
 			var randomParagraphs = this.processParagraphs3
-				.sort(function() {
-					return 0.5 - Math.random();
-				})
+				.sort(() => 0.5 - Math.random())
 				.slice(0, 1);
+
 			var regexMainStateFullName = /{{mainStateFullName}}/gi;
+
 			var paraMutation1 = randomParagraphs[0].content.replace(
 				regexMainStateFullName,
 				this.mainStateFullName
@@ -286,23 +244,23 @@ var vm = new Vue({
 			return paraMutation1;
 		},
 
-		roadConditionParagraph: function() {
+		roadConditionParagraph() {
 			return this.roadConditionParagraphArray[0].name;
 		},
 
-		weatherParagraph: function() {
+		weatherParagraph() {
 			return this.weatherParagraphArray[0].name;
 		}
 	},
 
 	methods: {
-		generateContent: function() {
+		generateContent() {
 			this.showContent = true;
 			this.showGenerateButton = false;
 			this.getMainStateData();
 		},
 
-		generateRandomNumbers: function() {
+		generateRandomNumbers() {
 			this.randomCityNumber = Math.floor(Math.random() * 12) + 2;
 			this.randomBodyTypeNumber = Math.floor(Math.random() * 12) + 2;
 			this.randomAccessoryNumber = Math.floor(Math.random() * 12) + 2;
@@ -311,112 +269,54 @@ var vm = new Vue({
 			this.randomTransportsNumber = Math.floor(Math.random() * 12) + 2;
 		},
 
-		getMainStateData: function() {
-			var _self = this;
-
+		getMainStateData() {
 			axios
-				.get(
-					`https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=${
-						_self.mainStateAbbreviation
-					}`
-				)
-				.then(function(response) {
-					_self.mainStateTopTenCities = response.data.filter(function(item) {
-						return item.type === "topTenCity";
-					});
-
-					_self.mainStateCities = response.data.filter(function(item) {
-						return item.type === "city";
-					});
-
-					_self.stateNickName = response.data.filter(function(item) {
-						return item.type === "stateNickname";
-					});
-
-					_self.roadConditionParagraphArray = response.data.filter(function(
-						item
-					) {
-						return item.type === "roadConditionParagraph";
-					});
-
-					_self.weatherParagraphArray = response.data.filter(function(item) {
-						return item.type === "weatherParagraph";
-					});
+				.get(`https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=${this.mainStateAbbreviation}`)
+				.then((response) => {
+					this.mainStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
+					this.mainStateCities = response.data.filter((item) => item.type === "city");
+					this.stateNickName = response.data.filter((item) => item.type === "stateNickname");
+					this.roadConditionParagraphArray = response.data.filter((item) => item.type === "roadConditionParagraph");
+					this.weatherParagraphArray = response.data.filter((item) => item.type === "weatherParagraph");
 				});
 		}
 	},
 
-	created: function() {
-		var _self = this;
-
-		_self.generateRandomNumbers();
+	created() {
+		this.generateRandomNumbers();
 
 		axios
 			.get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d")
-			.then(function(response) {
-				_self.allStates = response.data;
+			.then((response) => {
+				this.allStates = response.data
 			});
 
 		axios
 			.get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomThings")
-			.then(function(response) {
-				_self.vehicleBodyTypes = response.data.filter(function(item) {
-					return item.randomThingType === "vehicleBodyType";
-				});
-
-				_self.vehicleAccessories = response.data.filter(function(item) {
-					return item.randomThingType === "vehicleAccessory";
-				});
-
-				_self.rateImpacts = response.data.filter(function(item) {
-					return item.randomThingType === "rateImpact";
-				});
-
-				_self.shippingImpacts = response.data.filter(function(item) {
-					return item.randomThingType === "shippingImpact";
-				});
-
-				_self.topTwentyCitiesUSA = response.data.filter(function(item) {
-					return item.randomThingType === "topTwentyCityUSA";
-				});
+			.then((response) => {
+				this.vehicleBodyTypes = response.data.filter((item) => item.randomThingType === "vehicleBodyType");
+				this.vehicleAccessories = response.data.filter((item) => item.randomThingType === "vehicleAccessory");
+				this.rateImpacts = response.data.filter((item) => item.randomThingType === "rateImpact");
+				this.shippingImpacts = response.data.filter((item) => item.randomThingType === "shippingImpact");
+				this.topTwentyCitiesUSA = response.data.filter((item) => item.randomThingType === "topTwentyCityUSA");
 			});
 
 		axios
 			.get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomCars")
-			.then(function(response) {
-				_self.randomCars = response.data;
+			.then((response) => {
+				this.randomCars = response.data;
 			});
 
 		axios
 			.get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomParagraphs")
-			.then(function(response) {
-				_self.introParagraphs = response.data.filter(function(item) {
-					return item.paragraphType === "introPara";
-				});
-
-				_self.ratesParagraphs1 = response.data.filter(function(item) {
-					return item.paragraphType === "ratesPara1";
-				});
-
-				_self.ratesParagraphs2 = response.data.filter(function(item) {
-					return item.paragraphType === "ratesPara2";
-				});
-
-				_self.ratesParagraphs3 = response.data.filter(function(item) {
-					return item.paragraphType === "ratesPara3";
-				});
-
-				_self.processParagraphs1 = response.data.filter(function(item) {
-					return item.paragraphType === "processPara1";
-				});
-
-				_self.processParagraphs2 = response.data.filter(function(item) {
-					return item.paragraphType === "processPara2";
-				});
-
-				_self.processParagraphs3 = response.data.filter(function(item) {
-					return item.paragraphType === "processPara3";
-				});
+			.then((response) => {
+				this.introParagraphs = response.data.filter((item) => item.paragraphType === "introPara");
+				this.ratesParagraphs1 = response.data.filter((item) => item.paragraphType === "ratesPara1");
+				this.ratesParagraphs2 = response.data.filter((item) => item.paragraphType === "ratesPara2");
+				this.ratesParagraphs3 = response.data.filter((item) => item.paragraphType === "ratesPara3");
+				this.processParagraphs1 = response.data.filter((item) => item.paragraphType === "processPara1");
+				this.processParagraphs2 = response.data.filter((item) => item.paragraphType === "processPara2");
+				this.processParagraphs3 = response.data.filter((item) => item.paragraphType === "processPara3");
 			});
 	}
 });
