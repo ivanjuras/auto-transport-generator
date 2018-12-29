@@ -51,7 +51,9 @@ var vm = new Vue({
 		},
 
 		fhwaURL: function() {
-			return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm`;
+			return `https://www.fhwa.dot.gov/trafficinfo/${
+				this.mainStateAbbreviation
+			}.htm`;
 		},
 
 		mainStateRandomCities: function() {
@@ -132,27 +134,22 @@ var vm = new Vue({
 						return 0.5 - Math.random();
 					})
 					.slice(0, this.randomTransportsNumber),
-
 				shuffledMainStateTopTenCities = this.mainStateTopTenCities
 					.sort(function() {
 						return 0.5 - Math.random();
 					})
 					.slice(0, this.randomTransportsNumber),
-
 				shuffledMainStateTopTenCitiesNames = shuffledMainStateTopTenCities.map(
 					function(item) {
 						return item.name;
 					}
 				),
-
 				shuffledTopTwentyCitiesUSA = this.topTwentyCitiesUSA
 					.sort(function() {
 						return 0.5 - Math.random();
 					})
 					.slice(0, this.randomTransportsNumber),
-
 				randomTransportsArray = [],
-
 				_self = this;
 
 			for (var i = 0, len = this.randomTransportsNumber - 1; i <= len; i += 1) {
@@ -270,7 +267,7 @@ var vm = new Vue({
 				})
 				.slice(0, 1);
 			var paraMutation1 = randomParagraphs[0].content;
-			
+
 			return paraMutation1;
 		},
 
