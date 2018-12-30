@@ -45,9 +45,13 @@ var vm = new Vue({
 			return fullName;
 		},
 
-		wundergroundURL() { return `https://www.wunderground.com/US/${this.mainStateAbbreviation}/` },
+		wundergroundURL() {
+			return `https://www.wunderground.com/US/${this.mainStateAbbreviation}/`
+		},
 
-		fhwaURL() { return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm` },
+		fhwaURL() {
+			return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm`
+		},
 
 		mainStateRandomCities() {
 			var shuffledList = this.mainStateCities
