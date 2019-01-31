@@ -7,6 +7,7 @@ var vm = new Vue({
     showContent: false,
     allStates: [],
     mainStateAbbreviation: "AL",
+    secStateAbbreviation: "AK",
     randomCityNumber: 0,
     randomBodyTypeNumber: 0,
     randomAccessoryNumber: 0,
@@ -21,6 +22,12 @@ var vm = new Vue({
     topTwentyCitiesUSA: [],
     rateImpacts: [],
     shippingImpacts: [],
+    introHeadings: [],
+    ratesHeadings: [],
+    whyChooseUsHeadings: [],
+    studentHeadings: [],
+    militaryHeadings: [],
+    snowbirdHeadings: [],
     introParagraphs: [],
     ratesParagraphs1: [],
     ratesParagraphs2: [],
@@ -45,12 +52,16 @@ var vm = new Vue({
       return fullName;
     },
 
-    wundergroundURL() {
-      return `https://www.wunderground.com/US/${this.mainStateAbbreviation}/`
-    },
+    secStateFullName() {
+      var fullName = "";
 
-    fhwaURL() {
-      return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm`
+      this.allStates.forEach( (state) => {
+        if (state.abbreviation === this.secStateAbbreviation) {
+          fullName = state.name;
+        }
+      });
+
+      return fullName;
     },
 
     mainStateRandomCities() {
@@ -132,14 +143,27 @@ var vm = new Vue({
       return randomTransportsArray;
     },
 
+    introHeading() {
+      var randomHeading = this.ratesParagraphs1
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexRandomBodyTypes = /{{randomBodyTypes}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexRandomBodyTypes,
+        this.randomBodyTypes
+      );
+
+      return paraMutation1;
+    },
+
     introParagraph() {
       var randomParagraphs = this.introParagraphs
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
 
       var mainStateNickname = this.stateNickName[0].name;
-
-      console.log(randomParagraphs);
 
       var regexMainStateFullName = /{{mainStateFullName}}/gi;
       var regexMainStateRandomCities = /{{mainStateRandomCities}}/gi;
@@ -262,6 +286,7 @@ var vm = new Vue({
       this.showContent = true;
       this.showGenerateButton = false;
       this.getMainStateData();
+      this.getSecStateData();
     },
 
     generateRandomNumbers() {
@@ -275,7 +300,19 @@ var vm = new Vue({
 
     getMainStateData() {
       axios
-        .get(`https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=${this.mainStateAbbreviation}`)
+        .get(`https://sheetdb.io/api/v1/5iusht8kiio35?sheet=${this.mainStateAbbreviation}`)
+        .then((response) => {
+          this.mainStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
+          this.mainStateCities = response.data.filter((item) => item.type === "city");
+          this.stateNickName = response.data.filter((item) => item.type === "stateNickname");
+          this.roadConditionParagraphArray = response.data.filter((item) => item.type === "roadConditionParagraph");
+          this.weatherParagraphArray = response.data.filter((item) => item.type === "weatherParagraph");
+        });
+    },
+
+    getSecStateData() {
+      axios
+        .get(`https://sheetdb.io/api/v1/5iusht8kiio35?sheet=${this.secStateAbbreviation}`)
         .then((response) => {
           this.mainStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
           this.mainStateCities = response.data.filter((item) => item.type === "city");
@@ -290,13 +327,24 @@ var vm = new Vue({
     this.generateRandomNumbers();
 
     axios
-      .get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d")
+      .get("https://sheetdb.io/api/v1/5iusht8kiio35")
       .then((response) => {
         this.allStates = response.data
       });
 
     axios
-      .get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomThings")
+      .get("https://sheetdb.io/api/v1/5iusht8kiio35?sheet=randomHeaders")
+      .then((response) => {
+        this.introHeadings = response.data.filter((item) => item.headerType === 'introHeading');
+        this.ratesHeadings = response.data.filter((item) => item.headerType === 'ratesHeading');
+        this.whyChooseUsHeadings = response.data.filter((item) => item.headerType === 'whyChooseUsHeading');
+        this.studentHeadings = response.data.filter((item) => item.headerType === 'studentHeading');
+        this.militaryHeadings = response.data.filter((item) => item.headerType === 'militaryHeading');
+        this.snowbirdHeadings = response.data.filter((item) => item.headerType === 'snowbirdHeading');
+    });
+
+    axios
+      .get("https://sheetdb.io/api/v1/5iusht8kiio35?sheet=randomThings")
       .then((response) => {
         this.vehicleBodyTypes = response.data.filter((item) => item.randomThingType === "vehicleBodyType");
         this.vehicleAccessories = response.data.filter((item) => item.randomThingType === "vehicleAccessory");
@@ -306,13 +354,13 @@ var vm = new Vue({
       });
 
     axios
-      .get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomCars")
+      .get("https://sheetdb.io/api/v1/5iusht8kiio35?sheet=randomCars")
       .then((response) => {
         this.randomCars = response.data;
       });
 
     axios
-      .get("https://sheetdb.io/api/v1/5bb9f4b5b0b5d?sheet=randomParagraphs")
+      .get("https://sheetdb.io/api/v1/5iusht8kiio35?sheet=randomParagraphs")
       .then((response) => {
         this.introParagraphs = response.data.filter((item) => item.paragraphType === "introPara");
         this.ratesParagraphs1 = response.data.filter((item) => item.paragraphType === "ratesPara1");

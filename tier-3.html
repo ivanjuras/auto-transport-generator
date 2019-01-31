@@ -37,12 +37,28 @@
 
           <h2 class="app-subheading">Tier 3</h2>
 
-          <!-- Select State -->
+          <!-- Select Main State -->
           <div class="field">
             <label class="label">Main State</label>
             <div class="control">
               <div class="select">
                 <select v-model="mainStateAbbreviation" @change="getMainStateData">
+                  <option
+                    v-for="state in allStates"
+                    :value="state.abbreviation">
+                      {{ state.name }}  
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Select Main State -->
+          <div class="field">
+            <label class="label">Secondary State</label>
+            <div class="control">
+              <div class="select">
+                <select v-model="secStateAbbreviation" @change="getSecStateData">
                   <option
                     v-for="state in allStates"
                     :value="state.abbreviation">
@@ -214,7 +230,7 @@
         </div>
         <div class="column is-8">
 
-          <!-- --------------------------------- Display All Content ------------------------ -->
+          <!-- --------------------------------- Display All Content ----------------------------- -->
 
           <div class="card"
             v-if="showContent">
@@ -223,7 +239,7 @@
             </div>
             <div class="card-content">
 
-              <h1>{{mainStateFullName}} Auto Transport</h1>
+              <h1>{{introHeading}}</h1>
 
               <p>{{introParagraph}}</p>
 

@@ -45,14 +45,6 @@ var vm = new Vue({
 			return fullName;
 		},
 
-		wundergroundURL() {
-			return `https://www.wunderground.com/US/${this.mainStateAbbreviation}/`
-		},
-
-		fhwaURL() {
-			return `https://www.fhwa.dot.gov/trafficinfo/${this.mainStateAbbreviation}.htm`
-		},
-
 		mainStateRandomCities() {
 			var shuffledList = this.mainStateCities
 				.sort(() => 0.5 - Math.random())
