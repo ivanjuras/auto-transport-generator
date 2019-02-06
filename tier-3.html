@@ -124,109 +124,6 @@
               Generate Content
           </a>
 
-          <!-- Main State -->
-          <div class="card"
-          v-if="showContent">
-            <div class="card-header">
-              <span class="card-header-title">Main State:</span>
-            </div>
-            <div class="card-content">
-              <span class="copy-content-single">
-                {{mainStateFullName}}
-              </span>
-            </div>
-          </div>
-
-          <!-- Random Transports -->
-          <div class="card"
-            v-if="showContent">
-            <div class="card-header">
-              <span class="card-header-title">Random Transports:</span>
-            </div>
-            <div class="card-content">
-              <ul class="list--styled list--3-rows">
-                <li
-                  v-for="randomTransport in randomTransports">
-                    {{randomTransport}}
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Main State Random Top Ten Cities -->
-          <div class="card"
-            v-if="showContent">
-            <div class="card-header">
-              <span class="card-header-title">Main State Random Top Ten Cities:</span>
-            </div>
-            <div class="card-content">
-              <span class="copy-content-single">
-                {{mainStateRandomCities}}
-              </span>
-            </div>
-          </div>
-
-          <!-- Random Body Types -->
-          <div class="card"
-            v-if="showContent">
-            <div class="card-header">
-              <span class="card-header-title">Random Body Types:</span>
-            </div>
-            <div class="card-content">
-              <span class="copy-content-single">
-                {{randomBodyTypes}}
-              </span>
-            </div>
-          </div>
-
-          <!-- Random Accessories -->
-          <div class="card"
-            v-if="showContent">
-            <div class="card-header">
-              <span class="card-header-title">Random Accessories:</span>
-            </div>
-            <div class="card-content">
-              <ul class="list--styled list--3-rows">
-                <li
-                  v-for="randomAccessory in randomAccessories">
-                    {{randomAccessory}}
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Random Rate Impacts -->
-          <div class="card"
-            v-if="showContent">
-            <div class="card-header">
-              <span class="card-header-title">Random Rate Impacts:</span>
-            </div>
-            <div class="card-content">
-              <ul class="list--styled list--3-rows">
-                <li
-                  v-for="randomRateImpact in randomRateImpacts">
-                    {{randomRateImpact}}
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Random Shipping Impacts -->
-          <div class="card"
-            v-if="showContent">
-            <div class="card-header">
-              <span class="card-header-title">Random Shipping Impacts:</span>
-            </div>
-            <div class="card-content">
-              <ul class="list--styled list--3-rows">
-                <li
-                  v-for="randomShippingImpact in randomShippingImpacts">
-                    {{randomShippingImpact}}
-                </li>
-              </ul>
-            </div>
-          </div>
-
         </div>
         <div class="column is-8">
 
@@ -250,7 +147,7 @@
                 </li>
               </ul>
 
-              <h2>{{mainStateFullName}} Auto Transport Rates</h2>
+              <h2>{{ratesHeading}}</h2>
 
               <p>{{ratesParagraph1}}</p>
 
@@ -260,8 +157,6 @@
                     {{randomAccessory}}
                 </li>
               </ul>
-
-              <p>{{ratesParagraph2}}</p>
             
               <h4>Quick Auto Transport Rates Guide</h4>
 
@@ -272,30 +167,12 @@
                 </li>
               </ul>
 
-              <p>{{ratesParagraph3}}</p>
-
-              <h3>{{mainStateFullName}} Auto Shipping Process</h3>
-
-              <p>{{processParagraph1}}</p>
-
-              <p>{{processParagraph2}}</p>
-
-              <p>{{processParagraph3}}</p>
-
-              <h3>Shipping Impacts</h3>
-
-              <p v-html="roadConditionParagraph"></p>
-
-              <h3>Pickup and Delivery Impacts Guide</h3>
-
               <ul class="list--styled list--3-rows">
                 <li
                   v-for="randomShippingImpact in randomShippingImpacts">
                     {{randomShippingImpact}}
                 </li>
               </ul>
-
-              <p v-html="weatherParagraph"></p>
 
             </div>
           </div>

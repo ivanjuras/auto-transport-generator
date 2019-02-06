@@ -16,6 +16,8 @@ var vm = new Vue({
     randomTransportsNumber: 0,
     mainStateTopTenCities: [],
     mainStateCities: [],
+    secStateTopTenCities: [],
+    secStateCities: [],
     stateNickname: [],
     vehicleAccessories: [],
     vehicleBodyTypes: [],
@@ -31,10 +33,16 @@ var vm = new Vue({
     introParagraphs: [],
     ratesParagraphs1: [],
     ratesParagraphs2: [],
-    ratesParagraphs3: [],
-    processParagraphs1: [],
-    processParagraphs2: [],
-    processParagraphs3: [],
+    whyUsParagraphs1: [],
+    whyUsParagraphs2: [],
+    shippingProcessParagraphs1: [],
+    shippingProcessParagraphs2: [],
+    shippingProcessParagraphs3: [],
+    shippingImpactsParagraphs1: [],
+    shippingImpactsParagraphs2: [],
+    studentTransportParas: [],
+    militaryTransportParas: [],
+    snowbirdTransportParas: [],
     roadConditionParagraphArray: [],
     weatherParagraphArray: []
   },
@@ -64,8 +72,8 @@ var vm = new Vue({
       return fullName;
     },
 
-    mainStateRandomCities() {
-      var shuffledList = this.mainStateCities
+    mainStateRandomTopTenCitiesString() {
+      var shuffledList = this.mainStateTopTenCities
         .sort(() => 0.5 - Math.random())
         .slice(0, this.randomCityNumber);
 
@@ -124,18 +132,20 @@ var vm = new Vue({
         shuffledMainStateTopTenCitiesNames = shuffledMainStateTopTenCities
           .map((item) => item.name),
 
-        shuffledTopTwentyCitiesUSA = this.topTwentyCitiesUSA
-          .sort(() => 0.5 - Math.random())
-          .slice(0, this.randomTransportsNumber),
+        shuffledSecStateTopTenCities = this.secStateTopTenCities
+        .sort(() => 0.5 - Math.random())
+        .slice(0, this.randomTransportsNumber),
+
+        shuffledSecStateTopTenCitiesNames = shuffledSecStateTopTenCities
+          .map((item) => item.name),
 
         randomTransportsArray = [];
 
       for (var i = 0, len = this.randomTransportsNumber - 1; i <= len; i += 1) {
-        var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${
-          shuffledCars[i].model
-        }, ${shuffledMainStateTopTenCitiesNames[i]}, ${
-          this.mainStateAbbreviation
-        } to ${shuffledTopTwentyCitiesUSA[i].name}`;
+        console.log(shuffledCars[i].year);
+        console.log(shuffledCars[i].make);
+
+        var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${shuffledCars[i].model}, ${shuffledMainStateTopTenCitiesNames[i]}, ${this.mainStateAbbreviation} to ${shuffledSecStateTopTenCitiesNames[i]}, ${this.secStateAbbreviation}`;
 
         randomTransportsArray.push(arrayItem);
       }
@@ -144,18 +154,77 @@ var vm = new Vue({
     },
 
     introHeading() {
-      var randomHeading = this.ratesParagraphs1
+      var randomHeadingInput = this.introHeadings
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
 
-      var regexRandomBodyTypes = /{{randomBodyTypes}}/gi;
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
 
-      var paraMutation1 = randomParagraphs[0].content.replace(
-        regexRandomBodyTypes,
-        this.randomBodyTypes
+      var headingMutation1 = randomHeadingInput[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
       );
 
-      return paraMutation1;
+      var headingMutation2 = headingMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      return headingMutation2;
+    },
+
+    ratesHeading() {
+      var randomHeadingInput = this.ratesHeadings
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+
+      var headingMutation1 = randomHeadingInput[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var headingMutation2 = headingMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      return headingMutation2;
+    },
+
+    whyChooseUsHeading() {
+      var randomHeadingInput = this.whyChooseUsHeadings
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+        
+        return randomHeadingInput[0];
+    },
+
+    studentHeading() {
+      var randomHeadingInput = this.studentHeadings
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+        
+        return randomHeadingInput[0];
+    },
+
+    militaryHeading() {
+      var randomHeadingInput = this.militaryHeadings
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+        
+        return randomHeadingInput[0];
+    },
+
+    snowbirdHeading() {
+      var randomHeadingInput = this.snowbirdHeadings
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+        
+        return randomHeadingInput[0];
     },
 
     introParagraph() {
@@ -163,11 +232,11 @@ var vm = new Vue({
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
 
-      var mainStateNickname = this.stateNickName[0].name;
+      console.log(randomParagraphs[0]);
 
       var regexMainStateFullName = /{{mainStateFullName}}/gi;
-      var regexMainStateRandomCities = /{{mainStateRandomCities}}/gi;
-      var regexStateNickName = /{{stateNickname}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+      var regexMainStateRandomCities = /{{topTenCity}}/gi;
 
       var paraMutation1 = randomParagraphs[0].content.replace(
         regexMainStateFullName,
@@ -175,110 +244,17 @@ var vm = new Vue({
       );
 
       var paraMutation2 = paraMutation1.replace(
-        regexMainStateRandomCities,
-        this.mainStateRandomCities
+        regexSecStateFullName,
+        this.secStateFullName
       );
 
       var paraMutation3 = paraMutation2.replace(
-        regexStateNickName,
-        mainStateNickname
+        regexMainStateRandomCities,
+        this.mainStateRandomTopTenCitiesString
       );
 
       return paraMutation3;
     },
-
-    ratesParagraph1() {
-      var randomParagraphs = this.ratesParagraphs1
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 1);
-
-      var regexRandomBodyTypes = /{{randomBodyTypes}}/gi;
-
-      var paraMutation1 = randomParagraphs[0].content.replace(
-        regexRandomBodyTypes,
-        this.randomBodyTypes
-      );
-
-      return paraMutation1;
-    },
-
-    ratesParagraph2() {
-      var randomParagraphs = this.ratesParagraphs2
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 1);
-
-      var regexMainStateFullName = /{{mainStateFullName}}/gi;
-
-      var paraMutation1 = randomParagraphs[0].content.replace(
-        regexMainStateFullName,
-        this.mainStateFullName
-      );
-
-      return paraMutation1;
-    },
-
-    ratesParagraph3() {
-      var randomParagraphs = this.ratesParagraphs3
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 1);
-
-      var regexMainStateFullName = /{{mainStateFullName}}/gi;
-
-      var paraMutation1 = randomParagraphs[0].content.replace(
-        regexMainStateFullName,
-        this.mainStateFullName
-      );
-
-      return paraMutation1;
-    },
-
-    processParagraph1() {
-      var randomParagraphs = this.processParagraphs1
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 1);
-
-      var regexMainStateFullName = /{{mainStateFullName}}/gi;
-
-      var paraMutation1 = randomParagraphs[0].content.replace(
-        regexMainStateFullName,
-        this.mainStateFullName
-      );
-
-      return paraMutation1;
-    },
-
-    processParagraph2() {
-      var randomParagraphs = this.processParagraphs2
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 1);
-
-      var paraMutation1 = randomParagraphs[0].content;
-
-      return paraMutation1;
-    },
-
-    processParagraph3() {
-      var randomParagraphs = this.processParagraphs3
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 1);
-
-      var regexMainStateFullName = /{{mainStateFullName}}/gi;
-
-      var paraMutation1 = randomParagraphs[0].content.replace(
-        regexMainStateFullName,
-        this.mainStateFullName
-      );
-
-      return paraMutation1;
-    },
-
-    roadConditionParagraph() {
-      return this.roadConditionParagraphArray[0].name;
-    },
-
-    weatherParagraph() {
-      return this.weatherParagraphArray[0].name;
-    }
   },
 
   methods: {
@@ -305,8 +281,6 @@ var vm = new Vue({
           this.mainStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
           this.mainStateCities = response.data.filter((item) => item.type === "city");
           this.stateNickName = response.data.filter((item) => item.type === "stateNickname");
-          this.roadConditionParagraphArray = response.data.filter((item) => item.type === "roadConditionParagraph");
-          this.weatherParagraphArray = response.data.filter((item) => item.type === "weatherParagraph");
         });
     },
 
@@ -314,11 +288,8 @@ var vm = new Vue({
       axios
         .get(`https://sheetdb.io/api/v1/5iusht8kiio35?sheet=${this.secStateAbbreviation}`)
         .then((response) => {
-          this.mainStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
-          this.mainStateCities = response.data.filter((item) => item.type === "city");
-          this.stateNickName = response.data.filter((item) => item.type === "stateNickname");
-          this.roadConditionParagraphArray = response.data.filter((item) => item.type === "roadConditionParagraph");
-          this.weatherParagraphArray = response.data.filter((item) => item.type === "weatherParagraph");
+          this.secStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
+          this.secStateCities = response.data.filter((item) => item.type === "city");
         });
     }
   },
@@ -365,10 +336,16 @@ var vm = new Vue({
         this.introParagraphs = response.data.filter((item) => item.paragraphType === "introPara");
         this.ratesParagraphs1 = response.data.filter((item) => item.paragraphType === "ratesPara1");
         this.ratesParagraphs2 = response.data.filter((item) => item.paragraphType === "ratesPara2");
-        this.ratesParagraphs3 = response.data.filter((item) => item.paragraphType === "ratesPara3");
-        this.processParagraphs1 = response.data.filter((item) => item.paragraphType === "processPara1");
-        this.processParagraphs2 = response.data.filter((item) => item.paragraphType === "processPara2");
-        this.processParagraphs3 = response.data.filter((item) => item.paragraphType === "processPara3");
+        this.whyUsParagraphs1 = response.data.filter((item) => item.paragraphType === "whyUsPara1");
+        this.whyUsParagraphs2 = response.data.filter((item) => item.paragraphType === "whyUsPara2");
+        this.shippingProcessParagraphs1 = response.data.filter((item) => item.paragraphType === "shippingProcessPara1");
+        this.shippingProcessParagraphs2 = response.data.filter((item) => item.paragraphType === "shippingProcessPara2");
+        this.shippingProcessParagraphs3 = response.data.filter((item) => item.paragraphType === "shippingProcessPara3");
+        this.shippingImpactsParagraphs1 = response.data.filter((item) => item.paragraphType === "shippingImpactsPara1");
+        this.shippingImpactsParagraphs2 = response.data.filter((item) => item.paragraphType === "shippingImpactsPara2");
+        this.studentTransportParas = response.data.filter((item) => item.paragraphType === "studentTransportPara");
+        this.militaryTransportParas = response.data.filter((item) => item.paragraphType === "militaryTransportPara");
+        this.snowbirdTransportParas = response.data.filter((item) => item.paragraphType === "snowbirdTransportPara");
       });
   }
 });
