@@ -119,8 +119,7 @@
 
           <!-- Generate Button -->
           <a href="#" class="button is-medium is-success is-fullwidth"
-            @click="generateContent"
-            v-if="showGenerateButton">
+            @click="generateContent">
               Generate Content
           </a>
 
@@ -157,6 +156,8 @@
                     {{randomAccessory}}
                 </li>
               </ul>
+
+              <p>{{ratesParagraph2}}</p>
             
               <h4>Quick Auto Transport Rates Guide</h4>
 
@@ -167,12 +168,58 @@
                 </li>
               </ul>
 
+              <h2>{{whyChooseUsHeading}}</h2>
+
+              <p>{{whyUsParagraph1}}</p>
+
+              <p>{{whyUsParagraph2}}</p>
+
+              <h3>Shipping Process</h3>
+              
+              <p>{{shippingProcessParagraph1}}</p>
+
+              <p>{{shippingProcessParagraph2}}</p>
+
+              <p>{{shippingProcessParagraph3}}</p>
+
+              <h2>Shipping Impacts</h2>
+
+              <p v-html="shippingImpactsParagraph1"></p>
+
+              <p v-html="shippingImpactsParagraph2"></p>
+
               <ul class="list--styled list--3-rows">
                 <li
                   v-for="randomShippingImpact in randomShippingImpacts">
                     {{randomShippingImpact}}
                 </li>
               </ul>
+
+              <h2>{{studentHeading}}</h2>
+
+              <p>{{studentTransportParagraph}}</p>
+
+              <ul class="list--styled list--2-rows">
+                <li
+                  v-for="randomCollegeTransport in randomCollegeTransports">
+                    {{randomCollegeTransport}}
+                </li>
+              </ul>
+
+              <h2>{{militaryHeading}}</h2>
+
+              <p>{{militaryTransportParagraph}}</p>
+
+              <ul class="list--styled list--2-rows">
+                <li
+                  v-for="randomMilitaryTransport in randomMilitaryTransports">
+                    {{randomMilitaryTransport}}
+                </li>
+              </ul>
+
+              <h2>{{snowbirdHeading}}</h2>
+
+              <p>{{snowbirdTransportParagraph}}</p>
 
             </div>
           </div>

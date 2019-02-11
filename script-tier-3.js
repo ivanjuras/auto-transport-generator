@@ -3,7 +3,6 @@ var vm = new Vue({
 
   data: {
     appTitle: "Auto Transport Content Generator",
-    showGenerateButton: true,
     showContent: false,
     allStates: [],
     mainStateAbbreviation: "AL",
@@ -16,9 +15,12 @@ var vm = new Vue({
     randomTransportsNumber: 0,
     mainStateTopTenCities: [],
     mainStateCities: [],
+    mainStateMilitaryObjects: [],
     secStateTopTenCities: [],
     secStateCities: [],
+    secStateColleges: [],
     stateNickname: [],
+    secStateMilitaryObjects: [],
     vehicleAccessories: [],
     vehicleBodyTypes: [],
     topTwentyCitiesUSA: [],
@@ -142,15 +144,72 @@ var vm = new Vue({
         randomTransportsArray = [];
 
       for (var i = 0, len = this.randomTransportsNumber - 1; i <= len; i += 1) {
-        console.log(shuffledCars[i].year);
-        console.log(shuffledCars[i].make);
-
         var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${shuffledCars[i].model}, ${shuffledMainStateTopTenCitiesNames[i]}, ${this.mainStateAbbreviation} to ${shuffledSecStateTopTenCitiesNames[i]}, ${this.secStateAbbreviation}`;
 
         randomTransportsArray.push(arrayItem);
       }
 
       return randomTransportsArray;
+    },
+
+    randomCollegeTransports() {
+      var shuffledCars = this.randomCars
+          .sort(() => 0.5 - Math.random())
+          .slice(0, this.randomTransportsNumber),
+
+        shuffledMainStateTopTenCities = this.mainStateTopTenCities
+          .sort(() => 0.5 - Math.random())
+          .slice(0, this.randomTransportsNumber),
+
+        shuffledMainStateTopTenCitiesNames = shuffledMainStateTopTenCities
+          .map((item) => item.name),
+
+        shuffledSecStateColleges = this.secStateColleges
+        .sort(() => 0.5 - Math.random())
+        .slice(0, this.randomTransportsNumber),
+
+        shuffledSecStateCollegesNames = shuffledSecStateColleges
+          .map((item) => item.name),
+
+        randomCollegeTransportsArray = [];
+
+      for (var i = 0, len = this.randomTransportsNumber - 1; i <= len; i += 1) {
+        var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${shuffledCars[i].model}, ${shuffledMainStateTopTenCitiesNames[i]}, ${this.mainStateAbbreviation} to ${shuffledSecStateCollegesNames[i]}, ${this.secStateAbbreviation}`;
+
+        randomCollegeTransportsArray.push(arrayItem);
+      }
+
+      return randomCollegeTransportsArray;
+    },
+
+    randomMilitaryTransports() {
+      var shuffledCars = this.randomCars
+          .sort(() => 0.5 - Math.random())
+          .slice(0, this.randomTransportsNumber),
+
+        shuffledMainStateMilitaryObjects = this.mainStateMilitaryObjects
+          .sort(() => 0.5 - Math.random())
+          .slice(0, this.randomTransportsNumber),
+
+        shuffledMainStateMilitaryObjectsNames = shuffledMainStateMilitaryObjects
+          .map((item) => item.name),
+
+        shuffledSecStateMilitaryObjects = this.secStateMilitaryObjects
+          .sort(() => 0.5 - Math.random())
+          .slice(0, this.randomTransportsNumber),
+
+        shuffledSecStateMilitaryObjectsNames = shuffledSecStateMilitaryObjects
+          .map((item) => item.name),
+
+        randomMilitaryTransportArray = [];
+
+      for (var i = 0, len = this.randomTransportsNumber - 1; i <= len; i += 1) {
+        var arrayItem = `${shuffledCars[i].year} ${shuffledCars[i].make} ${shuffledCars[i].model}, ${shuffledMainStateMilitaryObjectsNames[i]}, ${this.mainStateAbbreviation} to ${shuffledSecStateMilitaryObjectsNames[i]}, ${this.secStateAbbreviation}`;
+
+        randomMilitaryTransportArray.push(arrayItem);
+      }
+
+      return randomMilitaryTransportArray;
     },
 
     introHeading() {
@@ -200,7 +259,7 @@ var vm = new Vue({
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
         
-        return randomHeadingInput[0];
+        return randomHeadingInput[0].content;
     },
 
     studentHeading() {
@@ -208,7 +267,7 @@ var vm = new Vue({
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
         
-        return randomHeadingInput[0];
+        return randomHeadingInput[0].content;
     },
 
     militaryHeading() {
@@ -216,7 +275,7 @@ var vm = new Vue({
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
         
-        return randomHeadingInput[0];
+        return randomHeadingInput[0].content;
     },
 
     snowbirdHeading() {
@@ -224,15 +283,13 @@ var vm = new Vue({
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
         
-        return randomHeadingInput[0];
+        return randomHeadingInput[0].content;
     },
 
     introParagraph() {
       var randomParagraphs = this.introParagraphs
         .sort(() => 0.5 - Math.random())
         .slice(0, 1);
-
-      console.log(randomParagraphs[0]);
 
       var regexMainStateFullName = /{{mainStateFullName}}/gi;
       var regexSecStateFullName = /{{secStateFullName}}/gi;
@@ -255,12 +312,229 @@ var vm = new Vue({
 
       return paraMutation3;
     },
+
+    ratesParagraph1() {
+      var randomParagraphs = this.ratesParagraphs1
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+      var regexRandomBodyTypes = /{{randomBodyTypes}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var paraMutation2 = paraMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      var paraMutation3 = paraMutation2.replace(
+        regexRandomBodyTypes,
+        this.randomBodyTypes
+      );
+
+      return paraMutation3;
+    },
+
+    ratesParagraph2() {
+      var randomParagraphs = this.ratesParagraphs2
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      return randomParagraphs[0].content;
+    },
+
+    whyUsParagraph1() {
+      var randomParagraphs = this.whyUsParagraphs1
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var paraMutation2 = paraMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      return paraMutation2;
+    },
+
+    whyUsParagraph2() {
+      var randomParagraphs = this.whyUsParagraphs2
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var paraMutation2 = paraMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      return paraMutation2;
+    },
+
+    shippingProcessParagraph1() {
+      var randomParagraphs = this.shippingProcessParagraphs1
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var paraMutation2 = paraMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      return paraMutation2;
+    },
+
+    shippingProcessParagraph2() {
+      var randomParagraphs = this.shippingProcessParagraphs2
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      return randomParagraphs[0].content;
+    },
+
+    shippingProcessParagraph3() {
+      var randomParagraphs = this.shippingProcessParagraphs3
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      return randomParagraphs[0].content;
+    },
+
+    shippingImpactsParagraph1() {
+      var randomParagraphs = this.shippingImpactsParagraphs1
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+      var regexMainStateAbbreviation = /{{mainStateAbbreviation}}/gi;
+      var regexSecStateAbbreviation = /{{secStateAbbreviation}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var paraMutation2 = paraMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      var paraMutation3 = paraMutation2.replace(
+        regexMainStateAbbreviation,
+        this.mainStateAbbreviation
+      );
+
+      var paraMutation4 = paraMutation3.replace(
+        regexSecStateAbbreviation,
+        this.secStateAbbreviation
+      );
+
+      return paraMutation4;
+    },
+
+    shippingImpactsParagraph2() {
+      var randomParagraphs = this.shippingImpactsParagraphs2
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+      var regexMainStateAbbreviation = /{{mainStateAbbreviation}}/gi;
+      var regexSecStateAbbreviation = /{{secStateAbbreviation}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var paraMutation2 = paraMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      var paraMutation3 = paraMutation2.replace(
+        regexMainStateAbbreviation,
+        this.mainStateAbbreviation
+      );
+
+      var paraMutation4 = paraMutation3.replace(
+        regexSecStateAbbreviation,
+        this.secStateAbbreviation
+      );
+
+      return paraMutation4;
+    },
+
+    studentTransportParagraph() {
+      var randomParagraphs = this.studentTransportParas
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      var regexMainStateFullName = /{{mainStateFullName}}/gi;
+      var regexSecStateFullName = /{{secStateFullName}}/gi;
+
+      var paraMutation1 = randomParagraphs[0].content.replace(
+        regexMainStateFullName,
+        this.mainStateFullName
+      );
+
+      var paraMutation2 = paraMutation1.replace(
+        regexSecStateFullName,
+        this.secStateFullName
+      );
+
+      return paraMutation2;
+    },
+
+    militaryTransportParagraph() {
+      var randomParagraphs = this.militaryTransportParas
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      return randomParagraphs[0].content;
+    },
+
+    snowbirdTransportParagraph() {
+      var randomParagraphs = this.snowbirdTransportParas
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+
+      return randomParagraphs[0].content;
+    },
+
   },
 
   methods: {
     generateContent() {
       this.showContent = true;
-      this.showGenerateButton = false;
       this.getMainStateData();
       this.getSecStateData();
     },
@@ -281,6 +555,7 @@ var vm = new Vue({
           this.mainStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
           this.mainStateCities = response.data.filter((item) => item.type === "city");
           this.stateNickName = response.data.filter((item) => item.type === "stateNickname");
+          this.mainStateMilitaryObjects = response.data.filter((item) => item.type === "military");
         });
     },
 
@@ -290,6 +565,8 @@ var vm = new Vue({
         .then((response) => {
           this.secStateTopTenCities = response.data.filter((item) => item.type === "topTenCity");
           this.secStateCities = response.data.filter((item) => item.type === "city");
+          this.secStateColleges = response.data.filter((item) => item.type === "colleges");
+          this.secStateMilitaryObjects = response.data.filter((item) => item.type === "military");
         });
     }
   },
